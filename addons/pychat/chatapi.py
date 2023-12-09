@@ -129,6 +129,8 @@ class ChatAPI:
             self._handle_exception(result)
 
 
+
+
 if __name__ == '__main__':
     api_test = ChatAPI(
         server_ip='127.0.0.1',

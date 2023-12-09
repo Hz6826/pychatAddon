@@ -1,7 +1,7 @@
 {
     "id": "pychat",
     "name": "PyChat",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "pos": "page",
     "file": [
         "init.py",

@@ -128,6 +128,130 @@ class ChatAPI:
         else:
             self._handle_exception(result)
 
+    def change_password(self, username, new_password):
+        salt = self._gen_salt()
+        result = self._send_request(
+            api_name="change_password",
+            data={
+                'app_id': self.app_id,
+                'session': self.session,
+                'username': username,
+                'new_password': new_password,
+                'salt': salt,
+                'sign': self._get_sign(self.session, username, new_password, salt)
+            }
+        )
+        if result['status'] == 0:
+            return result
+        else:
+            self._handle_exception(result)
+
+    def send_direct_message(self, recv_user, message):
+        salt = self._gen_salt()
+        result = self._send_request(
+            api_name="send_direct_message",
+            data={
+                    'app_id': self.app_id,
+                    'session': self.session,
+                    'recv_user': recv_user,
+                    'message': message,
+                    'salt': salt,
+                    'sign': self._get_sign(self.session, recv_user, message, salt)
+                }
+        )
+        if result['status'] == 0:
+            return result
+        else:
+            self._handle_exception(result)
+
+    def get_direct_message(self):
+        salt = self._gen_salt()
+        result = self._send_request(
+            api_name="get_direct_message",
+            data={
+                'app_id': self.app_id,
+                'session': self.session,
+                'salt': salt,
+                'sign': self._get_sign(self.session, salt)
+            }
+        )
+        if result['status'] == 0:
+            return result
+        else:
+            self._handle_exception(result)
+
+    def send_group_message(self, gid, message):
+        salt = self._gen_salt()
+        gid = str(gid)
+        result = self._send_request(
+            api_name="send_group_message",
+            data={
+                'app_id': self.app_id,
+                'session': self.session,
+                'gid': gid,
+                'message': message,
+                'salt': salt,
+                'sign': self._get_sign(self.session, gid, message, salt)
+            }
+        )
+        if result['status'] == 0:
+            return result
+        else:
+            self._handle_exception(result)
+
+    def get_group_message(self, gid):
+        salt = self._gen_salt()
+        gid = str(gid)
+        result = self._send_request(
+            api_name="get_group_message",
+            data={
+                'app_id': self.app_id,
+                'session': self.session,
+                'gid': gid,
+                'salt': salt,
+                'sign': self._get_sign(self.session, gid, salt)
+            }
+        )
+        if result['status'] == 0:
+            return result
+        else:
+            self._handle_exception(result)
+
+    def get_group_info(self, gid):
+        salt = self._gen_salt()
+        gid = str(gid)
+        result = self._send_request(
+            api_name="get_group_info",
+            data={
+                'app_id': self.app_id,
+                'session': self.session,
+                'gid': gid,
+                'salt': salt,
+                'sign': self._get_sign(self.session, gid, salt)
+            }
+        )
+        if result['status'] == 0:
+            return result
+        else:
+            self._handle_exception(result)
+
+    def register_group(self, group_name, description=""):
+        salt = self._gen_salt()
+        result = self._send_request(
+            api_name="get_group_info",
+            data={
+                'app_id': self.app_id,
+                'session': self.session,
+                'group_name': group_name,
+                'description': description,
+                'salt': salt,
+                'sign': self._get_sign(self.session, group_name, description, salt)
+            }
+        )
+        if result['status'] == 0:
+            return result
+        else:
+            self._handle_exception(result)
 
 
 
@@ -141,6 +265,9 @@ if __name__ == '__main__':
     api_test.login_user("apitest", "idk", heartbeat_interval=5)
     print(api_test.get_user_info(api_test.username))
     print(api_test.get_user_info('test'))
+    print(api_test.send_group_message(1, 'Hello, world!'))
+    print(api_test.get_group_info(1))
+    print(api_test.get_group_message(1))
     time.sleep(100)
 
 

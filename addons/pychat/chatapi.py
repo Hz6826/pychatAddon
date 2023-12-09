@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-ChatPy官方API
+PyChat官方API
 作者：Hz6826
 email：huangzhen6826@gmail.com
 """
